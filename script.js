@@ -18,6 +18,7 @@
   const themeToggle = document.getElementById('theme-toggle');
   const sliderTrack = document.getElementById('slider-track');
   const sliderDots = document.getElementById('slider-dots');
+  const experienceTimeline = document.getElementById('experience-timeline');
   const revealElements = document.querySelectorAll('.reveal');
   const sections = document.querySelectorAll('section[id]');
 
@@ -223,6 +224,34 @@
   }
 
   /* ==========================================================
+     EXPERIENCE TIMELINE SCROLL ANIMATION
+     ========================================================== */
+  function updateTimelineAnimation() {
+    if (!experienceTimeline) return;
+
+    const lineFill = experienceTimeline.querySelector('.timeline-line-fill');
+    if (!lineFill) return;
+
+    const timelineRect = experienceTimeline.getBoundingClientRect();
+    const viewportHeight = window.innerHeight;
+
+    // The top of the element relative to the viewport
+    const top = timelineRect.top;
+    // The height of the element
+    const height = timelineRect.height;
+
+    // Calculate the progress of the element scrolling through the viewport.
+    // A small offset makes the animation start/end a bit inside the viewport.
+    const offset = 100;
+    const progress = (viewportHeight - top - offset) / (viewportHeight + height - (2 * offset));
+
+    // Clamp the progress value between 0 and 1
+    const clampedProgress = Math.max(0, Math.min(1, progress));
+
+    lineFill.style.height = (clampedProgress * 100) + '%';
+  }
+
+  /* ==========================================================
      BUTTON RIPPLE ANIMATION
      ========================================================== */
   function initButtonAnimations() {
@@ -270,6 +299,7 @@
         updateScrollProgress();
         updateNavbarShadow();
         updateActiveNavLink();
+        updateTimelineAnimation();
         ticking = false;
       });
       ticking = true;
@@ -294,6 +324,7 @@
     updateScrollProgress();
     updateNavbarShadow();
     updateActiveNavLink();
+    updateTimelineAnimation();
   }
 
   /* Run when DOM is ready */

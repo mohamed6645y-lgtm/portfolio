@@ -853,6 +853,11 @@ main { position: relative; z-index: 1; }
   object-fit: cover;
   border-radius: calc(var(--radius-xl) - 8px);
   min-height: 320px;
+  mix-blend-mode: multiply;
+}
+
+[data-theme="dark"] .hero-image-frame img {
+  mix-blend-mode: normal;
 }
 
 .hero-image-glow {
